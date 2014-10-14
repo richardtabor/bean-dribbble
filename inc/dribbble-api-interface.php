@@ -190,6 +190,8 @@ class Bean_Dribbble_API_Interface {
    * @return boolean             true or false
    */
   public static function verifyAccessToken($accessToken) {
+    if ( empty($accessToken) ) return false;
+
     if ( self::validateAccessToken( $accessToken ) ) {
       $req_response = self::sendRequest( self::$shotsSlug,
                                          $accessToken,
@@ -223,6 +225,8 @@ class Bean_Dribbble_API_Interface {
   public static function retrieveShots($username,
                                        $accessToken,
                                        $shotsCount = 12) {
+
+    if ( empty($username) || empty($accessToken) ) return false;
 
     $requestAddress = self::$usersSlug .
                       '/' . $username .
