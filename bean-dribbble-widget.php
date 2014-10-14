@@ -37,9 +37,12 @@ class Bean_Dribbble_Plugin_Widget extends WP_Widget {
   public function widget( $args, $instance ) { 
       // WIDGET VARIABLES
     extract( $args );
+
+    $plugin_settings = get_option('bean-dribbble-plugin-settings');
+
     $title = apply_filters( 'widget_title', $instance['title'] );
-    $account = $instance['account'];
-    $access_token = $instance['access_token'];
+    $account = $plugin_settings['account_name'];
+    $access_token = $plugin_settings['access_token'];
     $shots = $instance['shots'];
     $desc = $instance['desc'];
   
