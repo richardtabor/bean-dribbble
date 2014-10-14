@@ -1,11 +1,11 @@
 <?php 
 /**
  * Plugin Name: Bean Dribbble
- * Plugin URI: http://themebeans.com/plugin/bean-dribbble-plugin/?ref=plugin_bean_dribbble
- * Description: Enables a Dribbble widget. Also enables support for Themebeans themes to display Dribbble posts in special page templates (only available in Spaces). You must register a <a href="https://dribbble.com/account/applications" target="_blank">Dribbble application</a> to retrieve your client access token.
+ * Plugin URI: http://themebeans.com/plugins/bean-dribbble
+ * Description: Enables a Dribbble widget and includes support for a custom Dribbble feed template, if built into the theme package.
  * Version: 1.0
- * Author: Kamil Waheed / Themebeans
- * Author URI: http://themebeans.com/?ref=plugin_bean_dribbble
+ * Author: Themebeans
+ * Author URI: http://themebeans.com
  */
 
 
@@ -13,6 +13,9 @@ if ( ! function_exists( 'add_action' ) ) {
   echo 'Hi there!  I\'m just a plugin, not much I can do when called directly.';
   exit;
 }
+
+define('BEAN_DRIBBBLE_PATH', plugin_dir_url( __FILE__ ));
+define('BEAN_DRIBBBLE_PLUGIN_FILE', __FILE__ );
 
 
 /*===================================================================*/
@@ -63,5 +66,24 @@ function bean_verify_dribbble_access_token() {
   return call_user_func_array(
     array( "Bean_Dribbble_API_Interface", "verifyAccessToken" ),
     $args);
+}
+
+/*===================================================================*/
+/* ADD SETTINGS LINK TO PLUGINS PAGE
+/*===================================================================*/
+define( 'BEANDRIBBBLE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+
+add_filter( 'plugin_action_links', 'beandribbble_plugin_action_links', 10, 2 );
+
+function beandribbble_plugin_action_links( $links, $file ) {
+  if ( $file != BEANDRIBBBLE_PLUGIN_BASENAME )
+    return $links;
+
+  $settings_link = '<a href="' . menu_page_url( 'bean-dribbble', false ) . '">'
+    . esc_html( __( 'Settings', 'bean-dribbble' ) ) . '</a>';
+
+  array_unshift( $links, $settings_link );
+
+  return $links;
 }
 ?>
