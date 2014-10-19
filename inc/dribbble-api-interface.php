@@ -29,10 +29,8 @@ class Bean_Dribbble_API_Interface {
                                                 $accessToken,
                                                 $response ) {
     // only cache successful request responses
-    if ( 0 != $response['errorNo'] ) {
-      if ( 200 != $response['responseCode'] ) {
-        return false;
-      }
+    if ( 0 != $response['errorNo'] || 200 != $response['responseCode'] ) {
+      return false;
     }
 
     $object = array(
