@@ -20,7 +20,7 @@ class Bean_Dribbble_Plugin_Widget extends WP_Widget {
    */
   public function __construct() {
     parent::__construct(
-      '_bean_dribbble',
+      'bean_dribbble',
       'Bean Dribbble',
       array( 'description' => __( 'Displays your Dribbble shots.', 'bean' ) )
     );
